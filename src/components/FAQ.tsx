@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ChevronDown } from 'lucide-react';
 import { FAQS } from '../data';
+import { ScrollReveal } from './ScrollReveal';
 
 export const FAQ: React.FC = () => {
   const [openId, setOpenId] = useState<string | null>(null);
@@ -16,7 +17,7 @@ export const FAQ: React.FC = () => {
       aria-label="Frequently Asked Questions"
       className="py-16 sm:py-24 lg:py-28 bg-[#FAF9F5] border-t border-[#E7E5E4]"
     >
-      <div className="max-w-4xl mx-auto px-6 sm:px-8">
+      <ScrollReveal className="max-w-4xl mx-auto px-6 sm:px-8">
         {/* Wireframe FAQ Heading */}
         <div className="text-center mb-12 sm:mb-16 space-y-3">
           <span className="text-xs uppercase tracking-[0.25em] font-semibold text-[#9B815B]">
@@ -42,7 +43,7 @@ export const FAQ: React.FC = () => {
                   aria-expanded={isOpen}
                   aria-controls={`faq-answer-${faq.id}`}
                   onClick={() => toggleItem(faq.id)}
-                  className="w-full py-5 text-left flex items-center justify-between gap-4 group focus:outline-none focus:ring-2 focus:ring-[#9B815B] rounded-sm"
+                  className="w-full py-5 text-left flex items-center justify-between gap-4 group focus:outline-none focus:ring-2 focus:ring-[#9B815B] rounded-sm cursor-pointer"
                 >
                   <div className="flex items-center space-x-4">
                     <span className="text-xs font-mono font-medium text-[#78716C] w-6">
@@ -81,7 +82,7 @@ export const FAQ: React.FC = () => {
             );
           })}
         </div>
-      </div>
+      </ScrollReveal>
     </section>
   );
 };

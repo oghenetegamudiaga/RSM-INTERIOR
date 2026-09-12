@@ -44,27 +44,17 @@ export const Navbar: React.FC<NavbarProps> = ({
   }, []);
 
   const navLinks = [
-    { label: 'HOME', href: '#home', id: 'home', type: 'scroll' },
-    { label: 'ABOUT', href: '#about', id: 'about', type: 'scroll' },
-    { label: 'OUR SERVICES', href: '#services', id: 'services', type: 'services' },
-    { label: 'OUR PROJECTS', href: '#projects', id: 'projects', type: 'scroll' },
-    { label: 'CAREERS', href: '#careers', id: 'careers', type: 'careers' },
-    { label: 'MEDIA', href: '#media', id: 'media', type: 'media' },
-    { label: 'CONTACT', href: '#contact', id: 'contact', type: 'scroll' },
+    { label: 'Home', href: '#home', id: 'home', type: 'scroll' },
+    { label: 'About Us', href: '#about', id: 'about', type: 'scroll' },
+    { label: 'Our Services', href: '#services', id: 'services', type: 'scroll' },
+    { label: 'Projects', href: '#projects', id: 'projects', type: 'scroll' },
+    { label: 'Contact', href: '#contact', id: 'contact', type: 'scroll' },
   ];
 
   const handleLinkClick = (link: { href: string; type: string }) => {
     setMobileMenuOpen(false);
-    if (link.type === 'services') {
+    if (link.type === 'services' && !document.querySelector(link.href)) {
       onOpenServices();
-      return;
-    }
-    if (link.type === 'careers') {
-      onOpenCareers();
-      return;
-    }
-    if (link.type === 'media') {
-      onOpenMedia();
       return;
     }
     const target = document.querySelector(link.href);
@@ -85,7 +75,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 sm:px-8 flex items-center justify-between">
-          {/* Exact Logo from Wireframe: SPAZIO / [IDEALE] */}
+          {/* RSM Interiors Confirmed Logo */}
           <a
             href="#home"
             id="desktop-logo"
@@ -93,18 +83,14 @@ export const Navbar: React.FC<NavbarProps> = ({
               e.preventDefault();
               handleLinkClick({ href: '#home', type: 'scroll' });
             }}
-            className="flex items-center space-x-1.5 focus:outline-none group select-none cursor-pointer"
-            aria-label="Spazio Ideale Home"
+            className="flex items-center focus:outline-none group select-none cursor-pointer"
+            aria-label="RSM Interiors Home"
           >
-            <span className="text-xl sm:text-2xl font-bold tracking-[0.18em] text-[#1F1C18] transition-colors group-hover:text-[#9B815B]">
-              SPAZIO
-            </span>
-            <span className="text-2xl sm:text-3xl font-black text-[#E5A823] transform -rotate-12 select-none -translate-y-0.5">
-              /
-            </span>
-            <span className="bg-[#1F1C18] text-white font-bold tracking-[0.18em] text-xs sm:text-sm px-2 py-0.5 transition-colors group-hover:bg-[#332E2A]">
-              IDEALE
-            </span>
+            <img
+              src="/images/logo.svg"
+              alt="RSM Interiors Logo"
+              className="h-8 sm:h-9 md:h-10 w-auto object-contain transition-opacity group-hover:opacity-85"
+            />
           </a>
 
           {/* Desktop Navigation Links matching exact image layout */}
@@ -120,7 +106,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   type="button"
                   id={`nav-link-${link.id}`}
                   onClick={() => handleLinkClick(link)}
-                  className="text-xs xl:text-[13px] font-bold tracking-wider uppercase text-[#1F1C18] hover:text-[#E5A823] transition-colors py-1 cursor-pointer focus:outline-none whitespace-nowrap"
+                  className="text-xs xl:text-[13px] font-bold tracking-wider text-[#1F1C18] hover:text-[#9B815B] transition-colors py-1 cursor-pointer focus:outline-none whitespace-nowrap"
                 >
                   {link.label}
                 </button>
@@ -190,16 +176,12 @@ export const Navbar: React.FC<NavbarProps> = ({
               <div className="flex flex-col space-y-5">
                 {/* Header in menu */}
                 <div className="flex items-center justify-between pb-3.5 border-b border-[#E7E5E4]">
-                  <div className="flex items-center space-x-1.5">
-                    <span className="text-base font-bold tracking-[0.16em] text-[#1F1C18]">
-                      SPAZIO
-                    </span>
-                    <span className="text-lg font-black text-[#E5A823] transform -rotate-12 select-none">
-                      /
-                    </span>
-                    <span className="bg-[#1F1C18] text-white font-bold tracking-[0.16em] text-[10px] px-1.5 py-0.5">
-                      IDEALE
-                    </span>
+                  <div className="flex items-center">
+                    <img
+                      src="/images/logo.svg"
+                      alt="RSM Interiors Logo"
+                      className="h-7 w-auto object-contain"
+                    />
                   </div>
                   <span className="text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#EFECE6] text-[#57534E] font-semibold">
                     Menu

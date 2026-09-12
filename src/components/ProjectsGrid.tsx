@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { X, MapPin, Calendar, ArrowRight } from 'lucide-react';
 import { FEATURED_PROJECTS, ALL_PROJECTS } from '../data';
 import { ProjectItem } from '../types';
+import { ScrollReveal, StaggerContainer, StaggerItem } from './ScrollReveal';
 
 interface ProjectsGridProps {
   onOpenInquiry: () => void;
@@ -27,7 +28,7 @@ export const ProjectsGrid: React.FC<ProjectsGridProps> = ({ onOpenInquiry }) => 
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-8">
         {/* Section Heading */}
-        <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16 space-y-3">
+        <ScrollReveal className="text-center max-w-2xl mx-auto mb-12 sm:mb-16 space-y-3">
           <span className="text-xs uppercase tracking-[0.25em] font-semibold text-[#9B815B]">
             Selected Portfolio
           </span>
@@ -37,69 +38,70 @@ export const ProjectsGrid: React.FC<ProjectsGridProps> = ({ onOpenInquiry }) => 
           <p className="text-base text-[#57534E]">
             A showcase of refined spaces where architectural balance meets personalized living.
           </p>
-        </div>
+        </ScrollReveal>
 
-        {/* 4 Featured Project Cards */}
-        <div
+        {/* 4 Featured Project Cards with Staggered Scroll Reveal */}
+        <StaggerContainer
           id="featured-projects-grid"
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
         >
           {FEATURED_PROJECTS.map((project) => (
-            <div
-              key={project.id}
-              id={`project-card-${project.id}`}
-              className="group bg-[#F5F3EF] border border-[#E7E5E4] rounded-xl overflow-hidden flex flex-col hover:border-[#9B815B] transition-all duration-300"
-            >
-              {/* Project Image Frame */}
-              <div className="relative aspect-[4/3] overflow-hidden bg-[#E7E5E4]">
-                <img
-                  src={project.image}
-                  alt={project.alt}
-                  className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500 ease-out"
-                />
-                <span className="absolute top-3 left-3 text-[11px] uppercase tracking-wider font-semibold px-2.5 py-1 rounded-sm bg-[#1F1C18]/75 backdrop-blur-xs text-white">
-                  {project.category}
-                </span>
-              </div>
+            <StaggerItem key={project.id}>
+              <div
+                id={`project-card-${project.id}`}
+                className="group bg-[#F5F3EF] border border-[#E7E5E4] rounded-xl overflow-hidden flex flex-col hover:border-[#9B815B] transition-all duration-300 h-full"
+              >
+                {/* Project Image Frame */}
+                <div className="relative aspect-[4/3] overflow-hidden bg-[#E7E5E4]">
+                  <img
+                    src={project.image}
+                    alt={project.alt}
+                    className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500 ease-out"
+                  />
+                  <span className="absolute top-3 left-3 text-[11px] uppercase tracking-wider font-semibold px-2.5 py-1 rounded-sm bg-[#1F1C18]/75 backdrop-blur-xs text-white">
+                    {project.category}
+                  </span>
+                </div>
 
-              {/* Project Info Block */}
-              <div className="p-5 flex flex-col flex-1 justify-between space-y-3">
-                <div className="space-y-1.5">
-                  <div className="flex items-center justify-between text-xs text-[#78716C]">
-                    <span className="flex items-center space-x-1">
-                      <MapPin className="w-3.5 h-3.5 text-[#9B815B]" />
-                      <span className="truncate max-w-[110px]">{project.location}</span>
-                    </span>
-                    <span className="flex items-center space-x-1">
-                      <Calendar className="w-3.5 h-3.5 text-[#9B815B]" />
-                      <span>{project.year}</span>
-                    </span>
+                {/* Project Info Block */}
+                <div className="p-5 flex flex-col flex-1 justify-between space-y-3">
+                  <div className="space-y-1.5">
+                    <div className="flex items-center justify-between text-xs text-[#78716C]">
+                      <span className="flex items-center space-x-1">
+                        <MapPin className="w-3.5 h-3.5 text-[#9B815B]" />
+                        <span className="truncate max-w-[110px]">{project.location}</span>
+                      </span>
+                      <span className="flex items-center space-x-1">
+                        <Calendar className="w-3.5 h-3.5 text-[#9B815B]" />
+                        <span>{project.year}</span>
+                      </span>
+                    </div>
+                    <h3 className="text-lg font-semibold text-[#1F1C18] group-hover:text-[#9B815B] transition-colors leading-snug">
+                      {project.title}
+                    </h3>
+                    <p className="text-xs text-[#57534E] line-clamp-2 leading-relaxed">
+                      {project.description}
+                    </p>
                   </div>
-                  <h3 className="text-lg font-semibold text-[#1F1C18] group-hover:text-[#9B815B] transition-colors leading-snug">
-                    {project.title}
-                  </h3>
-                  <p className="text-xs text-[#57534E] line-clamp-2 leading-relaxed">
-                    {project.description}
-                  </p>
-                </div>
 
-                <div className="pt-2">
-                  <button
-                    type="button"
-                    onClick={() => setActiveProjectDetail(project)}
-                    className="text-xs font-semibold uppercase tracking-wider text-[#1F1C18] group-hover:text-[#9B815B] flex items-center space-x-1.5 transition-colors focus:outline-none"
-                  >
-                    <span>View Project Specs</span>
-                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                  </button>
+                  <div className="pt-2">
+                    <button
+                      type="button"
+                      onClick={() => setActiveProjectDetail(project)}
+                      className="text-xs font-semibold uppercase tracking-wider text-[#1F1C18] group-hover:text-[#9B815B] flex items-center space-x-1.5 transition-colors focus:outline-none"
+                    >
+                      <span>View Project Specs</span>
+                      <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
 
-        {/* Wireframe CTA: [ See all Projects ] in solid fill #9B815B */}
-        <div className="mt-12 sm:mt-16 text-center">
+        {/* CTA: [ See all Projects ] in solid fill #9B815B */}
+        <ScrollReveal className="mt-12 sm:mt-16 text-center">
           <button
             type="button"
             id="see-all-projects-btn"
@@ -108,7 +110,7 @@ export const ProjectsGrid: React.FC<ProjectsGridProps> = ({ onOpenInquiry }) => 
           >
             See All Projects
           </button>
-        </div>
+        </ScrollReveal>
       </div>
 
       {/* Full Projects Portfolio Modal */}

@@ -1,5 +1,6 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
+import { ScrollReveal } from './ScrollReveal';
 
 interface AboutProps {
   onOpenInquiry: () => void;
@@ -12,7 +13,7 @@ export const About: React.FC<AboutProps> = ({ onOpenInquiry }) => {
       aria-label="About RSM Interiors"
       className="py-16 sm:py-24 lg:py-28 bg-[#FAF9F5]"
     >
-      <div className="max-w-7xl mx-auto px-6 sm:px-8">
+      <ScrollReveal className="max-w-7xl mx-auto px-6 sm:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           {/* Left Column: Written Copy */}
           <div className="lg:col-span-7 space-y-6">
@@ -107,7 +108,7 @@ export const About: React.FC<AboutProps> = ({ onOpenInquiry }) => {
             </div>
           </div>
         </div>
-      </div>
+      </ScrollReveal>
     </section>
   );
 };

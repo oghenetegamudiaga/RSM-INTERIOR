@@ -1,22 +1,8 @@
 import { StatItem, HeroSlide, ProjectItem, ReviewItem, FaqItem, ServiceItem } from './types';
+import { STATS } from './data/stats';
 
-export const STATS: StatItem[] = [
-  {
-    id: 'projects',
-    value: '50+',
-    label: 'Projects Completed'
-  },
-  {
-    id: 'experience',
-    value: '7+',
-    label: 'Years of Experience'
-  },
-  {
-    id: 'clients',
-    value: '28+',
-    label: 'Commercial Clients'
-  }
-];
+export { STATS };
+
 
 export const HERO_SLIDES: HeroSlide[] = [
   {

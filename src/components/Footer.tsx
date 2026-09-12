@@ -1,5 +1,6 @@
 import React from 'react';
 import { Mail, Phone, MapPin, Instagram, ArrowUp } from 'lucide-react';
+import { ScrollReveal } from './ScrollReveal';
 
 interface FooterProps {
   onOpenInquiry: () => void;
@@ -14,11 +15,9 @@ export const Footer: React.FC<FooterProps> = ({ onOpenInquiry, onOpenServices })
   const navLinks = [
     { label: 'Home', href: '#home', type: 'scroll' },
     { label: 'About Us', href: '#about', type: 'scroll' },
-    { label: 'Our Services', href: '#services', type: 'services' },
-    { label: 'Our Projects', href: '#projects', type: 'scroll' },
-    { label: 'Client Reviews', href: '#reviews', type: 'scroll' },
-    { label: 'FAQ', href: '#faq', type: 'scroll' },
-    { label: 'Contact Studio', href: '#contact', type: 'scroll' },
+    { label: 'Our Services', href: '#services', type: 'scroll' },
+    { label: 'Projects', href: '#projects', type: 'scroll' },
+    { label: 'Contact', href: '#contact', type: 'scroll' },
   ];
 
   return (
@@ -27,21 +26,17 @@ export const Footer: React.FC<FooterProps> = ({ onOpenInquiry, onOpenServices })
       aria-label="Footer and Studio Information"
       className="bg-[#1F1C18] text-[#E7E5E4] pt-16 sm:pt-20 pb-12 border-t border-[#38332E]"
     >
-      <div className="max-w-7xl mx-auto px-6 sm:px-8">
-        {/* Main Footer Grid Matching Wireframe: Logo/Philosophy, Links, Contact */}
+      <ScrollReveal className="max-w-7xl mx-auto px-6 sm:px-8">
+        {/* Main Footer Grid: Logo/Philosophy, Links, Contact */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 pb-16 border-b border-[#38332E]">
-          {/* Column 1: Logo & Studio Mission (Wireframe: Logo + lines) */}
+          {/* Column 1: Logo & Studio Mission */}
           <div className="md:col-span-5 space-y-4">
-            <div className="flex items-center space-x-1.5 select-none">
-              <span className="text-2xl sm:text-3xl font-bold tracking-[0.18em] text-white">
-                SPAZIO
-              </span>
-              <span className="text-3xl font-black text-[#E5A823] transform -rotate-12 select-none -translate-y-0.5">
-                /
-              </span>
-              <span className="bg-white text-[#1F1C18] font-bold tracking-[0.18em] text-sm px-2 py-0.5">
-                IDEALE
-              </span>
+            <div className="flex items-center select-none">
+              <img
+                src="/images/logo.svg"
+                alt="RSM Interiors Logo"
+                className="h-10 sm:h-12 w-auto object-contain"
+              />
             </div>
             <p className="text-[11px] uppercase tracking-[0.2em] text-[#A8A29E] mt-1 font-medium">
               Interior Architecture & Space Planning
@@ -61,7 +56,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenInquiry, onOpenServices })
             </div>
           </div>
 
-          {/* Column 2: Navigation Links Repeated (Wireframe: Middle lines) */}
+          {/* Column 2: Navigation Links */}
           <div className="md:col-span-3 space-y-4">
             <h4 className="text-xs uppercase tracking-[0.2em] font-semibold text-[#D6D3D1]">
               Navigation
@@ -69,28 +64,24 @@ export const Footer: React.FC<FooterProps> = ({ onOpenInquiry, onOpenServices })
             <ul className="space-y-2.5 text-sm text-[#A8A29E]">
               {navLinks.map((link) => (
                 <li key={link.label}>
-                  {link.type === 'services' && onOpenServices ? (
-                    <button
-                      type="button"
-                      onClick={onOpenServices}
-                      className="hover:text-white transition-colors text-left block"
-                    >
-                      {link.label}
-                    </button>
-                  ) : (
-                    <a
-                      href={link.href}
-                      className="hover:text-white transition-colors block"
-                    >
-                      {link.label}
-                    </a>
-                  )}
+                  <a
+                    href={link.href}
+                    onClick={(e) => {
+                      if (link.type === 'services' && onOpenServices && !document.querySelector(link.href)) {
+                        e.preventDefault();
+                        onOpenServices();
+                      }
+                    }}
+                    className="hover:text-white transition-colors block"
+                  >
+                    {link.label}
+                  </a>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Column 3: Contact & Instagram (Wireframe: Right lines) */}
+          {/* Column 3: Contact & Instagram */}
           <div className="md:col-span-4 space-y-4">
             <h4 className="text-xs uppercase tracking-[0.2em] font-semibold text-[#D6D3D1]">
               Studio Inquiries
@@ -103,10 +94,10 @@ export const Footer: React.FC<FooterProps> = ({ onOpenInquiry, onOpenServices })
               <div className="flex items-center space-x-3">
                 <Mail className="w-4 h-4 text-[#9B815B] shrink-0" />
                 <a
-                  href="mailto:inquiries@spazioideale.com"
+                  href="mailto:inquiries@rsminteriors.com"
                   className="hover:text-white transition-colors"
                 >
-                  inquiries@spazioideale.com
+                  inquiries@rsminteriors.com
                 </a>
               </div>
               <div className="flex items-center space-x-3">
@@ -120,7 +111,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenInquiry, onOpenServices })
               </div>
             </div>
 
-            {/* Social Link to Instagram (PRD Section 5.8: "Social link to Instagram") */}
+            {/* Social Link to Instagram */}
             <div className="pt-2">
               <span className="text-xs text-[#78716C] block mb-2">Follow Our Work</span>
               <a
@@ -131,7 +122,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenInquiry, onOpenServices })
                 className="inline-flex items-center space-x-2 text-xs uppercase tracking-wider font-semibold text-[#E7E5E4] hover:text-[#9B815B] transition-colors py-1"
               >
                 <Instagram className="w-4 h-4 text-[#9B815B]" />
-                <span>@spazioideale on Instagram</span>
+                <span>@rsminteriors on Instagram</span>
               </a>
             </div>
           </div>
@@ -139,7 +130,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenInquiry, onOpenServices })
 
         {/* Bottom Bar: Copyright & Back to Top */}
         <div className="mt-8 pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-[#78716C] gap-4">
-          <p>© 2026 Spazio Ideale. All rights reserved.</p>
+          <p>© 2026 RSM Interiors. All rights reserved.</p>
           <div className="flex items-center space-x-6">
             <span className="hover:text-[#A8A29E] cursor-pointer">Privacy Policy</span>
             <span className="hover:text-[#A8A29E] cursor-pointer">Terms of Service</span>
@@ -154,7 +145,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenInquiry, onOpenServices })
             </button>
           </div>
         </div>
-      </div>
+      </ScrollReveal>
     </footer>
   );
 };
