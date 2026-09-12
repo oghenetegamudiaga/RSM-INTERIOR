@@ -1,0 +1,6 @@
+{
+  "name": "RSM Interiors",
+  "description": "RSM Interiors studio landing page showcasing space planning, residential and commercial design, with portfolio carousel, proof metrics, founder story, testimonials, and inquiry flow.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
