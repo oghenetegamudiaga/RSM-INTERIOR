@@ -1,30 +1,29 @@
-import { StatItem, HeroSlide, ProjectItem, ReviewItem, FaqItem, ServiceItem } from './types';
+import { StatItem, HeroSlide, ProjectItem, ReviewItem, FaqItem } from './types';
 import { STATS } from './data/stats';
 
 export { STATS };
 
-
 export const HERO_SLIDES: HeroSlide[] = [
   {
     id: 'slide-1',
-    title: 'Crafting Timeless Spaces Tailored to Each Client',
-    subtitle: 'Full-service interior architecture, space planning, and bespoke residential and commercial environments.',
+    title: 'Crafting Timeless Spaces',
+    subtitle: 'Bespoke residential and commercial interior architecture tailored to how you live.',
     image: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=2000&q=80',
     alt: 'Sunlit modern minimalist living room with warm wood finishes and bespoke furniture',
     location: 'Kensington Residence'
   },
   {
     id: 'slide-2',
-    title: 'Precision Space Planning and Architectural Balance',
-    subtitle: 'Transforming natural light, proportion, and noble materials into calm and functional daily living.',
+    title: 'Architectural Balance & Space Planning',
+    subtitle: 'Transforming light, proportion, and noble materials into calm daily environments.',
     image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=2000&q=80',
     alt: 'Warm contemporary open-plan kitchen and dining interior with curated stone island',
     location: 'Tribeca Penthouse'
   },
   {
     id: 'slide-3',
-    title: 'Refined Commercial and Creative Workplaces',
-    subtitle: 'Purposeful environments designed to elevate human connection, productivity, and brand presence.',
+    title: 'Refined Workplaces & Studios',
+    subtitle: 'Purposeful commercial spaces designed to elevate human connection and focus.',
     image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=2000&q=80',
     alt: 'Boutique architectural office studio with warm oak joinery and linen acoustic partitions',
     location: 'Mayfair Design Studio'
@@ -150,32 +149,5 @@ export const FAQS: FaqItem[] = [
     id: 'faq-5',
     question: 'How do I start a project with RSM Interiors?',
     answer: 'You can submit a project inquiry through our website contact form or email our studio directly. We will schedule an introductory discovery conversation within two business days to review your scope and next steps.'
-  }
-];
-
-export const SERVICES: ServiceItem[] = [
-  {
-    id: 'service-space-planning',
-    title: 'Space Planning & Layout Architecture',
-    description: 'Analyzing flow, sightlines, and functional zones to maximize both utility and natural illumination.',
-    scope: ['Circulation & Flow Analysis', 'Zoning & Furniture Layouts', 'Structural Openings Coordination', 'Technical Floor Plans']
-  },
-  {
-    id: 'service-residential',
-    title: 'Custom Residential Interiors',
-    description: 'Curating warm, timeless residential environments tailored to your personal rhythms and comfort.',
-    scope: ['Full Home Renovations', 'Bespoke Joinery & Millwork', 'Kitchen & Bath Architecture', 'Curated Lighting & Materials']
-  },
-  {
-    id: 'service-commercial',
-    title: 'Commercial & Workplace Design',
-    description: 'Creating inspiring work environments that strengthen culture, productivity, and client impressions.',
-    scope: ['Boutique Offices & Studios', 'Acoustic & Privacy Planning', 'Executive Suites & Boardrooms', 'Brand Identity Environments']
-  },
-  {
-    id: 'service-turnkey',
-    title: 'Turnkey Execution & Styling',
-    description: 'Managing the entire process from concept through contractor coordination and final styling.',
-    scope: ['Contractor Oversight', 'FF&E Procurement & Tracking', 'Art & Object Curation', 'White-Glove Installation']
   }
 ];

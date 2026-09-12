@@ -46,17 +46,12 @@ export const Navbar: React.FC<NavbarProps> = ({
   const navLinks = [
     { label: 'Home', href: '#home', id: 'home', type: 'scroll' },
     { label: 'About Us', href: '#about', id: 'about', type: 'scroll' },
-    { label: 'Our Services', href: '#services', id: 'services', type: 'scroll' },
     { label: 'Projects', href: '#projects', id: 'projects', type: 'scroll' },
     { label: 'Contact', href: '#contact', id: 'contact', type: 'scroll' },
   ];
 
   const handleLinkClick = (link: { href: string; type: string }) => {
     setMobileMenuOpen(false);
-    if (link.type === 'services' && !document.querySelector(link.href)) {
-      onOpenServices();
-      return;
-    }
     const target = document.querySelector(link.href);
     if (target) {
       target.scrollIntoView({ behavior: 'smooth' });
@@ -87,7 +82,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             aria-label="RSM Interiors Home"
           >
             <img
-              src="/images/logo.svg"
+              src="/images/logo.png"
               alt="RSM Interiors Logo"
               className="h-8 sm:h-9 md:h-10 w-auto object-contain transition-opacity group-hover:opacity-85"
             />
@@ -178,7 +173,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <div className="flex items-center justify-between pb-3.5 border-b border-[#E7E5E4]">
                   <div className="flex items-center">
                     <img
-                      src="/images/logo.svg"
+                      src="/images/logo.png"
                       alt="RSM Interiors Logo"
                       className="h-7 w-auto object-contain"
                     />

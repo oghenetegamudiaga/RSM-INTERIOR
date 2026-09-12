@@ -3,7 +3,6 @@ import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { ProofStats } from './components/ProofStats';
 import { About } from './components/About';
-import { Services } from './components/Services';
 import { ProjectsGrid } from './components/ProjectsGrid';
 import { Reviews } from './components/Reviews';
 import { FAQ } from './components/FAQ';
@@ -47,9 +46,6 @@ export default function App() {
 
         {/* Wireframe About Section: Written Copy Left + Founder/CEO Photo Right */}
         <About onOpenInquiry={handleOpenInquiry} />
-
-        {/* Our Services Section */}
-        <Services onOpenInquiry={handleOpenInquiry} />
 
         {/* Our Projects: 4 Featured Cards + "See All Projects" CTA */}
         <ProjectsGrid onOpenInquiry={handleOpenInquiry} />

@@ -7,18 +7,46 @@ interface HeroProps {
   onOpenInquiry: () => void;
 }
 
+const slideVariants = {
+  enter: (direction: number) => ({
+    x: direction > 0 ? '100%' : '-100%',
+    opacity: 1,
+  }),
+  center: {
+    x: 0,
+    opacity: 1,
+  },
+  exit: (direction: number) => ({
+    x: direction < 0 ? '100%' : '-100%',
+    opacity: 1,
+  }),
+};
+
 export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const [[currentSlide, direction], setSlide] = useState([0, 0]);
   const [isPaused, setIsPaused] = useState(false);
   const touchStartX = useRef<number | null>(null);
 
-  const nextSlide = useCallback(() => {
-    setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
+  const paginate = useCallback((newDirection: number) => {
+    setSlide(([prevSlide]) => {
+      const nextIndex = (prevSlide + newDirection + HERO_SLIDES.length) % HERO_SLIDES.length;
+      return [nextIndex, newDirection];
+    });
   }, []);
 
+  const nextSlide = useCallback(() => {
+    paginate(1);
+  }, [paginate]);
+
   const prevSlide = useCallback(() => {
-    setCurrentSlide((prev) => (prev - 1 + HERO_SLIDES.length) % HERO_SLIDES.length);
-  }, []);
+    paginate(-1);
+  }, [paginate]);
+
+  const goToSlide = (index: number) => {
+    if (index === currentSlide) return;
+    const newDirection = index > currentSlide ? 1 : -1;
+    setSlide([index, newDirection]);
+  };
 
   // Auto-advance with pause on hover
   useEffect(() => {
@@ -72,14 +100,19 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
           id="hero-carousel-container"
           className="relative w-full aspect-[4/3] sm:aspect-[16/9] lg:aspect-[21/9] rounded-xl sm:rounded-2xl overflow-hidden bg-[#E7E5E4] border border-[#D6D3D1]"
         >
-          {/* Animated Slide Image */}
-          <AnimatePresence mode="wait">
+          {/* Animated Slide Image with Slide-In Motion */}
+          <AnimatePresence custom={direction} initial={false}>
             <motion.div
               key={slide.id}
-              initial={{ opacity: 0, scale: 1.03 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
+              custom={direction}
+              variants={slideVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{
+                x: { type: 'tween', ease: [0.25, 0.1, 0.25, 1], duration: 0.6 },
+                opacity: { duration: 0.2 },
+              }}
               className="absolute inset-0 w-full h-full"
             >
               <img
@@ -87,7 +120,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
                 alt={slide.alt}
                 className="w-full h-full object-cover object-center"
               />
-              {/* Solid neutral dark overlay for high contrast readability - strictly NO gradients */}
+              {/* Solid neutral dark overlay for high contrast readability */}
               <div className="absolute inset-0 bg-black/45" />
 
               {/* Slide Content Overlay */}
@@ -107,7 +140,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
                       type="button"
                       id="hero-get-started-cta"
                       onClick={onOpenInquiry}
-                      className="inline-flex items-center justify-center px-8 py-3.5 bg-[#9B815B] text-white font-medium text-sm sm:text-base tracking-wide rounded-sm hover:bg-[#886F4A] active:bg-[#78613F] transition-colors focus:outline-none focus:ring-2 focus:ring-white"
+                      className="inline-flex items-center justify-center px-8 py-3.5 bg-[#9B815B] text-white font-medium text-sm sm:text-base tracking-wide rounded-sm hover:bg-[#886F4A] active:bg-[#78613F] transition-colors focus:outline-none focus:ring-2 focus:ring-white cursor-pointer"
                     >
                       Get Started
                     </button>
@@ -118,24 +151,24 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
           </AnimatePresence>
         </div>
 
-        {/* Carousel Navigation Matching Wireframe: < o o o > */}
+        {/* Carousel Navigation: < o o o > */}
         <div
           id="hero-carousel-controls"
           aria-label="Carousel navigation"
           className="mt-6 flex items-center justify-center space-x-6 select-none"
         >
-          {/* Wireframe Left Arrow "<" */}
+          {/* Left Arrow "<" */}
           <button
             type="button"
             id="hero-prev-slide-btn"
             onClick={prevSlide}
             aria-label="Previous slide"
-            className="w-10 h-10 flex items-center justify-center rounded-full border border-[#D6D3D1] bg-[#FAF9F5] text-[#1F1C18] hover:bg-[#EFECE6] active:bg-[#E7E5E4] transition-colors focus:outline-none focus:ring-2 focus:ring-[#9B815B]"
+            className="w-10 h-10 flex items-center justify-center rounded-full border border-[#D6D3D1] bg-[#FAF9F5] text-[#1F1C18] hover:bg-[#EFECE6] active:bg-[#E7E5E4] transition-colors focus:outline-none focus:ring-2 focus:ring-[#9B815B] cursor-pointer"
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
 
-          {/* Wireframe Dots "o o o" */}
+          {/* Dots "o o o" */}
           <div className="flex items-center space-x-3" role="tablist" aria-label="Slide selector">
             {HERO_SLIDES.map((s, index) => {
               const isActive = index === currentSlide;
@@ -147,8 +180,8 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
                   role="tab"
                   aria-selected={isActive}
                   aria-label={`Go to slide ${index + 1}: ${s.location}`}
-                  onClick={() => setCurrentSlide(index)}
-                  className={`transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#9B815B] focus:ring-offset-2 rounded-full ${
+                  onClick={() => goToSlide(index)}
+                  className={`transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#9B815B] focus:ring-offset-2 rounded-full cursor-pointer ${
                     isActive
                       ? 'w-8 h-2.5 bg-[#9B815B]'
                       : 'w-2.5 h-2.5 bg-[#D6D3D1] hover:bg-[#A8A29E]'
@@ -158,13 +191,13 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
             })}
           </div>
 
-          {/* Wireframe Right Arrow ">" */}
+          {/* Right Arrow ">" */}
           <button
             type="button"
             id="hero-next-slide-btn"
             onClick={nextSlide}
             aria-label="Next slide"
-            className="w-10 h-10 flex items-center justify-center rounded-full border border-[#D6D3D1] bg-[#FAF9F5] text-[#1F1C18] hover:bg-[#EFECE6] active:bg-[#E7E5E4] transition-colors focus:outline-none focus:ring-2 focus:ring-[#9B815B]"
+            className="w-10 h-10 flex items-center justify-center rounded-full border border-[#D6D3D1] bg-[#FAF9F5] text-[#1F1C18] hover:bg-[#EFECE6] active:bg-[#E7E5E4] transition-colors focus:outline-none focus:ring-2 focus:ring-[#9B815B] cursor-pointer"
           >
             <ChevronRight className="w-5 h-5" />
           </button>

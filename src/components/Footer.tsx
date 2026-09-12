@@ -15,7 +15,6 @@ export const Footer: React.FC<FooterProps> = ({ onOpenInquiry, onOpenServices })
   const navLinks = [
     { label: 'Home', href: '#home', type: 'scroll' },
     { label: 'About Us', href: '#about', type: 'scroll' },
-    { label: 'Our Services', href: '#services', type: 'scroll' },
     { label: 'Projects', href: '#projects', type: 'scroll' },
     { label: 'Contact', href: '#contact', type: 'scroll' },
   ];
@@ -33,7 +32,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenInquiry, onOpenServices })
           <div className="md:col-span-5 space-y-4">
             <div className="flex items-center select-none">
               <img
-                src="/images/logo.svg"
+                src="/images/logo.png"
                 alt="RSM Interiors Logo"
                 className="h-10 sm:h-12 w-auto object-contain"
               />
@@ -66,12 +65,6 @@ export const Footer: React.FC<FooterProps> = ({ onOpenInquiry, onOpenServices })
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    onClick={(e) => {
-                      if (link.type === 'services' && onOpenServices && !document.querySelector(link.href)) {
-                        e.preventDefault();
-                        onOpenServices();
-                      }
-                    }}
                     className="hover:text-white transition-colors block"
                   >
                     {link.label}
