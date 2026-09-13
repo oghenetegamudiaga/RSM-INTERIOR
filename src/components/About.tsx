@@ -35,34 +35,6 @@ export const About: React.FC<AboutProps> = ({ onOpenInquiry }) => {
               </p>
             </div>
 
-            {/* Core Values / Competencies */}
-            <div className="pt-2 grid grid-cols-1 sm:grid-cols-3 gap-4 border-t border-[#E7E5E4]">
-              <div className="pt-3">
-                <span className="block text-xs uppercase tracking-wider font-semibold text-[#1F1C18]">
-                  Space Planning
-                </span>
-                <span className="text-xs text-[#78716C] mt-1 block">
-                  Optimized circulation, functional zones, and natural lighting pathways.
-                </span>
-              </div>
-              <div className="pt-3">
-                <span className="block text-xs uppercase tracking-wider font-semibold text-[#1F1C18]">
-                  Noble Materials
-                </span>
-                <span className="text-xs text-[#78716C] mt-1 block">
-                  Honest stone, sustainable timber, tailored linen, and blackened steel.
-                </span>
-              </div>
-              <div className="pt-3">
-                <span className="block text-xs uppercase tracking-wider font-semibold text-[#1F1C18]">
-                  Turnkey Delivery
-                </span>
-                <span className="text-xs text-[#78716C] mt-1 block">
-                  Direct coordination with architects, contractors, and artisan builders.
-                </span>
-              </div>
-            </div>
-
             <div className="pt-4">
               <button
                 type="button"

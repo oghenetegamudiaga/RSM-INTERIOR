@@ -126,9 +126,9 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
               {/* Slide Content Overlay */}
               <div className="absolute inset-0 flex flex-col justify-end p-6 sm:p-10 md:p-14 text-white">
                 <div className="max-w-2xl space-y-3 sm:space-y-4">
-                  <span className="inline-block text-xs uppercase tracking-[0.2em] font-medium text-[#E7E5E4] bg-[#1F1C18]/60 backdrop-blur-xs px-3 py-1 rounded-sm">
+                  <p className="text-xs uppercase tracking-[0.25em] font-medium text-[#E7E5E4]">
                     {slide.location}
-                  </span>
+                  </p>
                   <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold leading-[1.15] text-white tracking-tight">
                     {slide.title}
                   </h1>

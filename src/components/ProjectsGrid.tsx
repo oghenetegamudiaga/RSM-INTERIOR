@@ -58,9 +58,6 @@ export const ProjectsGrid: React.FC<ProjectsGridProps> = ({ onOpenInquiry }) => 
                     alt={project.alt}
                     className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500 ease-out"
                   />
-                  <span className="absolute top-3 left-3 text-[11px] uppercase tracking-wider font-semibold px-2.5 py-1 rounded-sm bg-[#1F1C18]/75 backdrop-blur-xs text-white">
-                    {project.category}
-                  </span>
                 </div>
 
                 {/* Project Info Block */}

@@ -178,9 +178,6 @@ export const Navbar: React.FC<NavbarProps> = ({
                       className="h-7 w-auto object-contain"
                     />
                   </div>
-                  <span className="text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#EFECE6] text-[#57534E] font-semibold">
-                    Menu
-                  </span>
                 </div>
 
                 {/* Staggered Navigation Links */}
