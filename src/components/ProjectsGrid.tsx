@@ -40,7 +40,7 @@ export const ProjectsGrid: React.FC<ProjectsGridProps> = ({ onOpenInquiry }) => 
           </p>
         </ScrollReveal>
 
-        {/* 4 Featured Project Cards with Staggered Scroll Reveal */}
+        {/* Featured Project Cards with Overlay Titles (Matching Reference Image) */}
         <StaggerContainer
           id="featured-projects-grid"
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
@@ -49,48 +49,24 @@ export const ProjectsGrid: React.FC<ProjectsGridProps> = ({ onOpenInquiry }) => 
             <StaggerItem key={project.id}>
               <div
                 id={`project-card-${project.id}`}
-                className="group bg-[#F5F3EF] border border-[#E7E5E4] rounded-xl overflow-hidden flex flex-col hover:border-[#9B815B] transition-all duration-300 h-full"
+                onClick={() => setActiveProjectDetail(project)}
+                className="group relative aspect-[4/3] rounded-xl overflow-hidden cursor-pointer border border-[#E7E5E4] hover:border-[#9B815B] transition-all duration-300 shadow-xs"
               >
-                {/* Project Image Frame */}
-                <div className="relative aspect-[4/3] overflow-hidden bg-[#E7E5E4]">
-                  <img
-                    src={project.image}
-                    alt={project.alt}
-                    className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500 ease-out"
-                  />
-                </div>
+                {/* Project Highlight Image */}
+                <img
+                  src={project.image}
+                  alt={project.alt}
+                  className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500 ease-out"
+                />
 
-                {/* Project Info Block */}
-                <div className="p-5 flex flex-col flex-1 justify-between space-y-3">
-                  <div className="space-y-1.5">
-                    <div className="flex items-center justify-between text-xs text-[#78716C]">
-                      <span className="flex items-center space-x-1">
-                        <MapPin className="w-3.5 h-3.5 text-[#9B815B]" />
-                        <span className="truncate max-w-[110px]">{project.location}</span>
-                      </span>
-                      <span className="flex items-center space-x-1">
-                        <Calendar className="w-3.5 h-3.5 text-[#9B815B]" />
-                        <span>{project.year}</span>
-                      </span>
-                    </div>
-                    <h3 className="text-lg font-semibold text-[#1F1C18] group-hover:text-[#9B815B] transition-colors leading-snug">
-                      {project.title}
-                    </h3>
-                    <p className="text-xs text-[#57534E] line-clamp-2 leading-relaxed">
-                      {project.description}
-                    </p>
-                  </div>
+                {/* Dark Bottom Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent pointer-events-none" />
 
-                  <div className="pt-2">
-                    <button
-                      type="button"
-                      onClick={() => setActiveProjectDetail(project)}
-                      className="text-xs font-semibold uppercase tracking-wider text-[#1F1C18] group-hover:text-[#9B815B] flex items-center space-x-1.5 transition-colors focus:outline-none"
-                    >
-                      <span>View Project Specs</span>
-                      <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                    </button>
-                  </div>
+                {/* Project Title Overlaid at Bottom Left */}
+                <div className="absolute bottom-0 left-0 right-0 p-5 z-10">
+                  <h3 className="text-lg sm:text-xl font-bold text-white tracking-tight leading-snug group-hover:text-[#EFECE6] transition-colors">
+                    {project.title}
+                  </h3>
                 </div>
               </div>
             </StaggerItem>
@@ -176,36 +152,19 @@ export const ProjectsGrid: React.FC<ProjectsGridProps> = ({ onOpenInquiry }) => 
                   {filteredProjects.map((p) => (
                     <div
                       key={p.id}
-                      className="bg-white border border-[#E7E5E4] rounded-xl overflow-hidden hover:border-[#9B815B] transition-all flex flex-col"
+                      onClick={() => setActiveProjectDetail(p)}
+                      className="group relative aspect-[4/3] rounded-xl overflow-hidden cursor-pointer border border-[#E7E5E4] hover:border-[#9B815B] transition-all duration-300 shadow-xs"
                     >
-                      <div className="aspect-[4/3] bg-[#E7E5E4] overflow-hidden">
-                        <img
-                          src={p.image}
-                          alt={p.alt}
-                          className="w-full h-full object-cover hover:scale-103 transition-transform duration-300"
-                        />
-                      </div>
-                      <div className="p-5 flex flex-col flex-1 justify-between space-y-3">
-                        <div>
-                          <div className="flex items-center justify-between text-[11px] text-[#78716C] mb-1">
-                            <span>{p.category}</span>
-                            <span>{p.location}</span>
-                          </div>
-                          <h4 className="text-lg font-semibold text-[#1F1C18]">
-                            {p.title}
-                          </h4>
-                          <p className="text-xs text-[#57534E] mt-1 line-clamp-2">
-                            {p.description}
-                          </p>
-                        </div>
-                        <button
-                          type="button"
-                          onClick={() => setActiveProjectDetail(p)}
-                          className="text-xs font-semibold text-[#9B815B] hover:text-[#886F4A] flex items-center space-x-1"
-                        >
-                          <span>View Details</span>
-                          <ArrowRight className="w-3.5 h-3.5" />
-                        </button>
+                      <img
+                        src={p.image}
+                        alt={p.alt}
+                        className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500 ease-out"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent pointer-events-none" />
+                      <div className="absolute bottom-0 left-0 right-0 p-5 z-10">
+                        <h4 className="text-lg font-bold text-white tracking-tight leading-snug group-hover:text-[#EFECE6] transition-colors">
+                          {p.title}
+                        </h4>
                       </div>
                     </div>
                   ))}
