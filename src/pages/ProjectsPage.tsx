@@ -1,23 +1,20 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { X } from 'lucide-react';
-import { Navbar } from '../components/Navbar';
-import { Footer } from '../components/Footer';
 import { PROJECTS } from '../data/projects';
 import { ProjectItem } from '../types';
 import { ScrollReveal, StaggerContainer, StaggerItem } from '../components/ScrollReveal';
 
 interface ProjectsPageProps {
   onOpenInquiry: () => void;
-  onNavigate: (path: string) => void;
+  onNavigate?: (path: string) => void;
 }
 
-export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onOpenInquiry, onNavigate }) => {
+export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onOpenInquiry }) => {
   const [activeProjectDetail, setActiveProjectDetail] = useState<ProjectItem | null>(null);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#FAF9F5] text-[#1F1C18] antialiased">
-      <Navbar onOpenInquiry={onOpenInquiry} onNavigate={onNavigate} currentPath="/projects" />
+    <>
       <main className="flex-grow pt-24 sm:pt-28 lg:pt-32 pb-16 sm:pb-24">
         <div className="max-w-7xl mx-auto px-6 sm:px-8">
           {/* Page Heading */}
@@ -127,8 +124,6 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onOpenInquiry, onNav
           </div>
         )}
       </AnimatePresence>
-
-      <Footer onOpenInquiry={onOpenInquiry} onNavigate={onNavigate} />
-    </div>
+    </>
   );
 };

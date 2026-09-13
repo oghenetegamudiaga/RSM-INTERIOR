@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
 import { Mail, Phone, Instagram, Send, CheckCircle2 } from 'lucide-react';
-import { Navbar } from '../components/Navbar';
-import { Footer } from '../components/Footer';
 import { ScrollReveal } from '../components/ScrollReveal';
 
 interface ContactPageProps {
-  onOpenInquiry: () => void;
-  onNavigate: (path: string) => void;
+  onOpenInquiry?: () => void;
+  onNavigate?: (path: string) => void;
 }
 
-export const ContactPage: React.FC<ContactPageProps> = ({ onOpenInquiry, onNavigate }) => {
+export const ContactPage: React.FC<ContactPageProps> = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -30,9 +28,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onOpenInquiry, onNavig
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#FAF9F5] text-[#1F1C18] antialiased">
-      <Navbar onOpenInquiry={onOpenInquiry} onNavigate={onNavigate} currentPath="/contact" />
-      <main className="flex-grow pt-24 sm:pt-28 lg:pt-32 pb-16 sm:pb-24">
+    <main className="flex-grow pt-24 sm:pt-28 lg:pt-32 pb-16 sm:pb-24">
         <div className="max-w-7xl mx-auto px-6 sm:px-8">
           <ScrollReveal className="text-center max-w-2xl mx-auto mb-12 sm:mb-16 space-y-3">
             <span className="text-xs uppercase tracking-[0.25em] font-semibold text-[#9B815B]">
@@ -211,7 +207,5 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onOpenInquiry, onNavig
           </div>
         </div>
       </main>
-      <Footer onOpenInquiry={onOpenInquiry} onNavigate={onNavigate} />
-    </div>
   );
 };
