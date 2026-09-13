@@ -14,9 +14,9 @@ export const About: React.FC<AboutProps> = ({ onOpenInquiry }) => {
       className="py-16 sm:py-24 lg:py-28 bg-[#FAF9F5]"
     >
       <ScrollReveal className="max-w-7xl mx-auto px-6 sm:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-24 xl:gap-28 items-center">
           {/* Left Column: Written Copy */}
-          <div className="lg:col-span-7 space-y-6">
+          <div className="lg:col-span-7 space-y-6 pr-0 lg:pr-4">
             <div className="space-y-3">
               <span className="text-xs uppercase tracking-[0.25em] font-semibold text-[#9B815B]">
                 Studio Philosophy
@@ -48,7 +48,7 @@ export const About: React.FC<AboutProps> = ({ onOpenInquiry }) => {
             </div>
           </div>
 
-          {/* Right Column: Founder / CEO Photo Matching Wireframe */}
+          {/* Right Column: Founder / CEO Photo */}
           <div className="lg:col-span-5">
             <div
               id="founder-photo-card"
@@ -56,9 +56,9 @@ export const About: React.FC<AboutProps> = ({ onOpenInquiry }) => {
             >
               <div className="aspect-[4/5] rounded-lg overflow-hidden bg-[#E7E5E4]">
                 <img
-                  src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1000&q=80"
+                  src="/images/founder.jpg"
                   alt="Rahma Say Muhammed, Founder and Principal Designer of RSM Interiors"
-                  className="w-full h-full object-cover object-center"
+                  className="w-full h-full object-cover object-top"
                 />
               </div>
 
