@@ -5,19 +5,30 @@ import { ScrollReveal } from './ScrollReveal';
 interface FooterProps {
   onOpenInquiry: () => void;
   onOpenServices?: () => void;
+  onNavigate?: (path: string) => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onOpenInquiry, onOpenServices }) => {
+export const Footer: React.FC<FooterProps> = ({ onOpenInquiry, onNavigate }) => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const navLinks = [
-    { label: 'Home', href: '#home', type: 'scroll' },
-    { label: 'About Us', href: '#about', type: 'scroll' },
-    { label: 'Projects', href: '#projects', type: 'scroll' },
-    { label: 'Contact', href: '#contact', type: 'scroll' },
+    { label: 'Home', href: '/' },
+    { label: 'About Us', href: '/about' },
+    { label: 'Projects', href: '/projects' },
+    { label: 'Contact', href: '/contact' },
   ];
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    if (onNavigate) {
+      onNavigate(href);
+    } else {
+      window.history.pushState({}, '', href);
+      window.dispatchEvent(new Event('popstate'));
+    }
+  };
 
   return (
     <footer
@@ -48,7 +59,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenInquiry, onOpenServices })
                 type="button"
                 id="footer-inquire-btn"
                 onClick={onOpenInquiry}
-                className="px-6 py-3 bg-[#9B815B] text-white text-xs sm:text-sm font-medium tracking-wide rounded-sm hover:bg-[#886F4A] active:bg-[#78613F] transition-colors focus:outline-none focus:ring-2 focus:ring-white"
+                className="px-6 py-3 bg-[#9B815B] text-white text-xs sm:text-sm font-medium tracking-wide rounded-sm hover:bg-[#886F4A] active:bg-[#78613F] transition-colors focus:outline-none focus:ring-2 focus:ring-white cursor-pointer"
               >
                 Inquire for Your Space
               </button>
@@ -65,6 +76,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenInquiry, onOpenServices })
                 <li key={link.label}>
                   <a
                     href={link.href}
+                    onClick={(e) => handleNavClick(e, link.href)}
                     className="hover:text-white transition-colors block"
                   >
                     {link.label}
@@ -80,10 +92,6 @@ export const Footer: React.FC<FooterProps> = ({ onOpenInquiry, onOpenServices })
               Studio Inquiries
             </h4>
             <div className="space-y-3 text-sm text-[#A8A29E]">
-              <div className="flex items-start space-x-3">
-                <MapPin className="w-4 h-4 text-[#9B815B] shrink-0 mt-0.5" />
-                <span>14 Berkeley Square, Mayfair, London W1J 6BQ</span>
-              </div>
               <div className="flex items-center space-x-3">
                 <Mail className="w-4 h-4 text-[#9B815B] shrink-0" />
                 <a
@@ -96,10 +104,10 @@ export const Footer: React.FC<FooterProps> = ({ onOpenInquiry, onOpenServices })
               <div className="flex items-center space-x-3">
                 <Phone className="w-4 h-4 text-[#9B815B] shrink-0" />
                 <a
-                  href="tel:+442079460912"
+                  href="tel:+2347033333523"
                   className="hover:text-white transition-colors"
                 >
-                  +44 (0) 20 7946 0912
+                  +234 703 333 3523
                 </a>
               </div>
             </div>
@@ -108,14 +116,14 @@ export const Footer: React.FC<FooterProps> = ({ onOpenInquiry, onOpenServices })
             <div className="pt-2">
               <span className="text-xs text-[#78716C] block mb-2">Follow Our Work</span>
               <a
-                href="https://instagram.com"
+                href="https://www.instagram.com/rsminteriors_?stkn=a21mcmo4cWh0ZGQ5"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 id="footer-instagram-link"
                 className="inline-flex items-center space-x-2 text-xs uppercase tracking-wider font-semibold text-[#E7E5E4] hover:text-[#9B815B] transition-colors py-1"
               >
                 <Instagram className="w-4 h-4 text-[#9B815B]" />
-                <span>@rsminteriors on Instagram</span>
+                <span>@rsminteriors_ on Instagram</span>
               </a>
             </div>
           </div>

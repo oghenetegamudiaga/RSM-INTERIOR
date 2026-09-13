@@ -1,7 +1,11 @@
 import { StatItem, HeroSlide, ProjectItem, ReviewItem, FaqItem } from './types';
 import { STATS } from './data/stats';
+import { PROJECTS } from './data/projects';
 
-export { STATS };
+export { STATS, PROJECTS };
+
+export const FEATURED_PROJECTS: ProjectItem[] = PROJECTS.slice(0, 4);
+export const ALL_PROJECTS: ProjectItem[] = PROJECTS;
 
 export const HERO_SLIDES: HeroSlide[] = [
   {
@@ -27,73 +31,6 @@ export const HERO_SLIDES: HeroSlide[] = [
     image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=2000&q=80',
     alt: 'Boutique architectural office studio with warm oak joinery and linen acoustic partitions',
     location: 'Mayfair Design Studio'
-  }
-];
-
-export const FEATURED_PROJECTS: ProjectItem[] = [
-  {
-    id: 'proj-1',
-    title: 'The Claymore Residence',
-    category: 'Residential',
-    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
-    alt: 'Modern residential interior living room with natural stone fireplace and warm oak floors',
-    location: 'Kensington, London',
-    year: '2025',
-    description: 'Complete interior renovation focusing on open sightlines, custom oak millwork, and tactile limestone finishes.'
-  },
-  {
-    id: 'proj-2',
-    title: 'Aura Studio & Headquarters',
-    category: 'Commercial',
-    image: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1200&q=80',
-    alt: 'Executive commercial boardroom with natural linen textures and integrated indirect lighting',
-    location: 'Fitzrovia, London',
-    year: '2024',
-    description: 'Adaptive workplace layout uniting collaboration lounges, acoustic focus pods, and biophilic light wells.'
-  },
-  {
-    id: 'proj-3',
-    title: 'Pavilion Garden Villa',
-    category: 'Exterior',
-    image: 'https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=1200&q=80',
-    alt: 'Seamless indoor outdoor living terrace with travertine flooring and minimalist pergola',
-    location: 'Cotswolds',
-    year: '2025',
-    description: 'Harmonizing interior entertaining spaces with exterior garden courtyards through floor-to-ceiling pivot glass.'
-  },
-  {
-    id: 'proj-4',
-    title: 'Highgate Townhouse',
-    category: 'Space Planning',
-    image: 'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1200&q=80',
-    alt: 'Restored historic townhouse living room with contemporary tailored furniture and warm neutral palette',
-    location: 'Highgate, London',
-    year: '2024',
-    description: 'Restoration of historic ceiling heights paired with modern spatial zoning and bespoke storage.'
-  }
-];
-
-export const ALL_PROJECTS: ProjectItem[] = [
-  ...FEATURED_PROJECTS,
-  {
-    id: 'proj-5',
-    title: 'The Mercer Penthouse',
-    category: 'Residential',
-    image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80',
-    alt: 'Serene master bedroom suite featuring natural linen drapery and soft travertine textures',
-    location: 'Chelsea, London',
-    year: '2025',
-    description: 'A sanctuary above the city with sound-dampening fluted walls, custom headboard joinery, and private dressing room.'
-  },
-  {
-    id: 'proj-6',
-    title: 'Solstice Wellness Club',
-    category: 'Commercial',
-    image: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=80',
-    alt: 'Warm minimal reception lounge with sculpted clay plaster walls and curved bench seating',
-    location: 'Marylebone, London',
-    year: '2024',
-    description: 'Holistic interior architecture celebrating warm clay plaster, diffused lighting, and grounding organic textures.'
   }
 ];
 

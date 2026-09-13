@@ -4,39 +4,24 @@ import { ArrowRight, Phone, Mail, MapPin } from 'lucide-react';
 
 interface NavbarProps {
   onOpenInquiry: () => void;
-  onOpenCareers: () => void;
-  onOpenMedia: () => void;
-  onOpenServices: () => void;
+  onOpenCareers?: () => void;
+  onOpenMedia?: () => void;
+  onOpenServices?: () => void;
+  onNavigate?: (path: string) => void;
+  currentPath?: string;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
   onOpenInquiry,
-  onOpenCareers,
-  onOpenMedia,
-  onOpenServices,
+  onNavigate,
+  currentPath = '/',
 }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
-
-      const sections = ['home', 'about', 'projects', 'reviews', 'faq', 'contact'];
-      const scrollPosition = window.scrollY + 140;
-
-      for (const section of sections) {
-        const el = document.getElementById(section);
-        if (el) {
-          const top = el.offsetTop;
-          const height = el.offsetHeight;
-          if (scrollPosition >= top && scrollPosition < top + height) {
-            setActiveSection(section);
-            break;
-          }
-        }
-      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -44,17 +29,19 @@ export const Navbar: React.FC<NavbarProps> = ({
   }, []);
 
   const navLinks = [
-    { label: 'Home', href: '#home', id: 'home', type: 'scroll' },
-    { label: 'About Us', href: '#about', id: 'about', type: 'scroll' },
-    { label: 'Projects', href: '#projects', id: 'projects', type: 'scroll' },
-    { label: 'Contact', href: '#contact', id: 'contact', type: 'scroll' },
+    { label: 'Home', href: '/', id: 'home' },
+    { label: 'About Us', href: '/about', id: 'about' },
+    { label: 'Projects', href: '/projects', id: 'projects' },
+    { label: 'Contact', href: '/contact', id: 'contact' },
   ];
 
-  const handleLinkClick = (link: { href: string; type: string }) => {
+  const handleLinkClick = (href: string) => {
     setMobileMenuOpen(false);
-    const target = document.querySelector(link.href);
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth' });
+    if (onNavigate) {
+      onNavigate(href);
+    } else {
+      window.history.pushState({}, '', href);
+      window.dispatchEvent(new Event('popstate'));
     }
   };
 
@@ -72,11 +59,11 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="max-w-7xl mx-auto px-6 sm:px-8 flex items-center justify-between">
           {/* RSM Interiors Confirmed Logo */}
           <a
-            href="#home"
+            href="/"
             id="desktop-logo"
             onClick={(e) => {
               e.preventDefault();
-              handleLinkClick({ href: '#home', type: 'scroll' });
+              handleLinkClick('/');
             }}
             className="flex items-center focus:outline-none group select-none cursor-pointer"
             aria-label="RSM Interiors Home"
@@ -95,13 +82,16 @@ export const Navbar: React.FC<NavbarProps> = ({
             className="hidden lg:flex items-center space-x-7 xl:space-x-9"
           >
             {navLinks.map((link) => {
+              const isActive = currentPath === link.href;
               return (
                 <button
                   key={link.id}
                   type="button"
                   id={`nav-link-${link.id}`}
-                  onClick={() => handleLinkClick(link)}
-                  className="text-xs xl:text-[13px] font-bold tracking-wider text-[#1F1C18] hover:text-[#9B815B] transition-colors py-1 cursor-pointer focus:outline-none whitespace-nowrap"
+                  onClick={() => handleLinkClick(link.href)}
+                  className={`text-xs xl:text-[13px] font-bold tracking-wider transition-colors py-1 cursor-pointer focus:outline-none whitespace-nowrap ${
+                    isActive ? 'text-[#9B815B] border-b-2 border-[#9B815B]' : 'text-[#1F1C18] hover:text-[#9B815B]'
+                  }`}
                 >
                   {link.label}
                 </button>
@@ -183,7 +173,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 {/* Staggered Navigation Links */}
                 <div className="flex flex-col space-y-1.5">
                   {navLinks.map((link, idx) => {
-                    const isActive = activeSection === link.id;
+                    const isActive = currentPath === link.href;
                     return (
                       <motion.button
                         key={link.id}
@@ -192,7 +182,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                         initial={{ opacity: 0, x: -16 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.04 * idx, type: 'spring', stiffness: 300, damping: 25 }}
-                        onClick={() => handleLinkClick(link)}
+                        onClick={() => handleLinkClick(link.href)}
                         className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-left transition-all cursor-pointer ${
                           isActive
                             ? 'bg-[#EFECE6] text-[#1F1C18] font-semibold'
@@ -200,7 +190,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                         }`}
                       >
                         <span className="text-sm tracking-wider font-semibold uppercase">{link.label}</span>
-                        <ArrowRight className={`w-3.5 h-3.5 transition-transform ${isActive ? 'text-[#E5A823] translate-x-0.5' : 'text-[#A8A29E]'}`} />
+                        <ArrowRight className={`w-3.5 h-3.5 transition-transform ${isActive ? 'text-[#9B815B] translate-x-0.5' : 'text-[#A8A29E]'}`} />
                       </motion.button>
                     );
                   })}
@@ -215,7 +205,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                       setMobileMenuOpen(false);
                       onOpenInquiry();
                     }}
-                    className="w-full py-3 bg-[#1F1C18] text-white text-center font-medium rounded-xl hover:bg-[#332E2A] active:bg-[#44403C] transition-colors text-sm tracking-wide uppercase"
+                    className="w-full py-3 bg-[#1F1C18] text-white text-center font-medium rounded-xl hover:bg-[#332E2A] active:bg-[#44403C] transition-colors text-sm tracking-wide uppercase cursor-pointer"
                   >
                     Start Studio Consultation
                   </button>
@@ -224,16 +214,12 @@ export const Navbar: React.FC<NavbarProps> = ({
                 {/* Studio Contact Info in Mobile Menu */}
                 <div className="pt-3 border-t border-[#E7E5E4] space-y-2 text-xs text-[#78716C]">
                   <div className="flex items-center space-x-2.5">
-                    <Mail className="w-3.5 h-3.5 text-[#E5A823] shrink-0" />
-                    <span>inquiries@spazioideale.com</span>
+                    <Mail className="w-3.5 h-3.5 text-[#9B815B] shrink-0" />
+                    <span>inquiries@rsminteriors.com</span>
                   </div>
                   <div className="flex items-center space-x-2.5">
-                    <Phone className="w-3.5 h-3.5 text-[#E5A823] shrink-0" />
-                    <span>+44 (0) 20 7946 0912</span>
-                  </div>
-                  <div className="flex items-center space-x-2.5">
-                    <MapPin className="w-3.5 h-3.5 text-[#E5A823] shrink-0" />
-                    <span>14 Berkeley Square, Mayfair, London</span>
+                    <Phone className="w-3.5 h-3.5 text-[#9B815B] shrink-0" />
+                    <span>+234 703 333 3523</span>
                   </div>
                 </div>
               </div>

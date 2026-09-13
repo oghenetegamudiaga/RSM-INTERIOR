@@ -7,9 +7,10 @@ import { ScrollReveal, StaggerContainer, StaggerItem } from './ScrollReveal';
 
 interface ProjectsGridProps {
   onOpenInquiry: () => void;
+  onNavigate?: (path: string) => void;
 }
 
-export const ProjectsGrid: React.FC<ProjectsGridProps> = ({ onOpenInquiry }) => {
+export const ProjectsGrid: React.FC<ProjectsGridProps> = ({ onOpenInquiry, onNavigate }) => {
   const [isGalleryModalOpen, setIsGalleryModalOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [activeProjectDetail, setActiveProjectDetail] = useState<ProjectItem | null>(null);
@@ -78,7 +79,13 @@ export const ProjectsGrid: React.FC<ProjectsGridProps> = ({ onOpenInquiry }) => 
           <button
             type="button"
             id="see-all-projects-btn"
-            onClick={() => setIsGalleryModalOpen(true)}
+            onClick={() => {
+              if (onNavigate) {
+                onNavigate('/projects');
+              } else {
+                setIsGalleryModalOpen(true);
+              }
+            }}
             className="inline-flex items-center justify-center px-10 py-4 bg-[#9B815B] text-white font-medium text-sm sm:text-base tracking-wide rounded-sm hover:bg-[#886F4A] active:bg-[#78613F] transition-colors focus:outline-none focus:ring-2 focus:ring-[#9B815B] focus:ring-offset-2"
           >
             See All Projects
