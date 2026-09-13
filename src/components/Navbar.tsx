@@ -99,7 +99,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             })}
           </nav>
 
-          {/* Mobile Framer-style Floating Menu Toggle Button */}
+          {/* Mobile Menu Toggle Button (Clean Black Hamburger without Circle) */}
           <div className="lg:hidden">
             <button
               type="button"
@@ -107,23 +107,23 @@ export const Navbar: React.FC<NavbarProps> = ({
               aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={mobileMenuOpen}
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="relative z-50 flex items-center justify-center w-11 h-11 rounded-full bg-[#1F1C18] text-white hover:bg-[#2E2A26] transition-colors focus:outline-none focus:ring-2 focus:ring-[#9B815B]"
+              className="relative z-50 p-2 text-[#1F1C18] focus:outline-none cursor-pointer"
             >
-              <div className="w-5 h-4 flex flex-col justify-between items-center">
+              <div className="w-6 h-4 flex flex-col justify-between items-center">
                 <motion.span
                   animate={mobileMenuOpen ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
                   transition={{ type: 'spring', stiffness: 350, damping: 25 }}
-                  className="w-5 h-[2px] bg-white rounded-full origin-center"
+                  className="w-6 h-[2px] bg-[#1F1C18] rounded-full origin-center"
                 />
                 <motion.span
                   animate={mobileMenuOpen ? { opacity: 0, scale: 0.8 } : { opacity: 1, scale: 1 }}
                   transition={{ duration: 0.15 }}
-                  className="w-5 h-[2px] bg-white rounded-full"
+                  className="w-6 h-[2px] bg-[#1F1C18] rounded-full"
                 />
                 <motion.span
                   animate={mobileMenuOpen ? { rotate: -45, y: -7 } : { rotate: 0, y: 0 }}
                   transition={{ type: 'spring', stiffness: 350, damping: 25 }}
-                  className="w-5 h-[2px] bg-white rounded-full origin-center"
+                  className="w-6 h-[2px] bg-[#1F1C18] rounded-full origin-center"
                 />
               </div>
             </button>
