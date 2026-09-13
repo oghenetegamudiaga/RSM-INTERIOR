@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ArrowRight, Phone, Mail, MapPin } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 interface NavbarProps {
   onOpenInquiry: () => void;
@@ -148,80 +148,39 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Framer-Style Floating Pill Menu Panel */}
             <motion.div
               id="framer-mobile-nav-panel"
-              initial={{ opacity: 0, y: -24, scale: 0.96 }}
+              initial={{ opacity: 0, y: -20, scale: 0.97 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -20, scale: 0.96 }}
+              exit={{ opacity: 0, y: -16, scale: 0.97 }}
               transition={{
                 type: 'spring',
-                stiffness: 340,
+                stiffness: 350,
                 damping: 28,
               }}
-              className="fixed top-20 left-4 right-4 z-40 lg:hidden max-h-[calc(100vh-6rem)] overflow-y-auto bg-[#FAF9F5] border border-[#E7E5E4] rounded-2xl p-6"
+              className="fixed top-20 left-4 right-4 z-40 lg:hidden bg-[#FAF9F5]/98 backdrop-blur-md border border-[#E7E5E4] rounded-2xl p-4 shadow-lg"
             >
-              <div className="flex flex-col space-y-5">
-                {/* Header in menu */}
-                <div className="flex items-center justify-between pb-3.5 border-b border-[#E7E5E4]">
-                  <div className="flex items-center">
-                    <img
-                      src="/images/logo.png"
-                      alt="RSM Interiors Logo"
-                      className="h-7 w-auto object-contain"
-                    />
-                  </div>
-                </div>
-
-                {/* Staggered Navigation Links */}
-                <div className="flex flex-col space-y-1.5">
-                  {navLinks.map((link, idx) => {
-                    const isActive = currentPath === link.href;
-                    return (
-                      <motion.button
-                        key={link.id}
-                        type="button"
-                        id={`mobile-nav-link-${link.id}`}
-                        initial={{ opacity: 0, x: -16 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.04 * idx, type: 'spring', stiffness: 300, damping: 25 }}
-                        onClick={() => handleLinkClick(link.href)}
-                        className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-left transition-all cursor-pointer ${
-                          isActive
-                            ? 'bg-[#EFECE6] text-[#1F1C18] font-semibold'
-                            : 'text-[#44403C] hover:bg-[#F5F3EF] hover:text-[#1F1C18]'
-                        }`}
-                      >
-                        <span className="text-sm tracking-wider font-semibold uppercase">{link.label}</span>
-                        <ArrowRight className={`w-3.5 h-3.5 transition-transform ${isActive ? 'text-[#9B815B] translate-x-0.5' : 'text-[#A8A29E]'}`} />
-                      </motion.button>
-                    );
-                  })}
-                </div>
-
-                {/* Mobile Call To Action */}
-                <div className="pt-2">
-                  <button
-                    type="button"
-                    id="mobile-inquiry-cta"
-                    onClick={() => {
-                      setMobileMenuOpen(false);
-                      onOpenInquiry();
-                    }}
-                    className="w-full py-3 bg-[#1F1C18] text-white text-center font-medium rounded-xl hover:bg-[#332E2A] active:bg-[#44403C] transition-colors text-sm tracking-wide uppercase cursor-pointer"
-                  >
-                    Start Studio Consultation
-                  </button>
-                </div>
-
-                {/* Studio Contact Info in Mobile Menu */}
-                <div className="pt-3 border-t border-[#E7E5E4] space-y-2 text-xs text-[#78716C]">
-                  <div className="flex items-center space-x-2.5">
-                    <Mail className="w-3.5 h-3.5 text-[#9B815B] shrink-0" />
-                    <span>inquiries@rsminteriors.com</span>
-                  </div>
-                  <div className="flex items-center space-x-2.5">
-                    <Phone className="w-3.5 h-3.5 text-[#9B815B] shrink-0" />
-                    <span>+234 703 333 3523</span>
-                  </div>
-                </div>
+              <div className="flex flex-col space-y-1">
+                {navLinks.map((link, idx) => {
+                  const isActive = currentPath === link.href;
+                  return (
+                    <motion.button
+                      key={link.id}
+                      type="button"
+                      id={`mobile-nav-link-${link.id}`}
+                      initial={{ opacity: 0, x: -12 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.03 * idx, type: 'spring', stiffness: 300, damping: 25 }}
+                      onClick={() => handleLinkClick(link.href)}
+                      className={`flex items-center justify-between px-4 py-3.5 rounded-xl text-left transition-colors cursor-pointer ${
+                        isActive
+                          ? 'bg-[#EFECE6] text-[#9B815B] font-bold'
+                          : 'text-[#1F1C18] hover:bg-[#F5F3EF] hover:text-[#9B815B] font-semibold'
+                      }`}
+                    >
+                      <span className="text-sm tracking-wider font-semibold uppercase">{link.label}</span>
+                      <ArrowRight className={`w-4 h-4 transition-transform ${isActive ? 'text-[#9B815B] translate-x-0.5' : 'text-[#A8A29E]'}`} />
+                    </motion.button>
+                  );
+                })}
               </div>
             </motion.div>
           </>
